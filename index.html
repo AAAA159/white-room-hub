@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>THE WHITE ROOM | النظام الأساسي والمعرفة العامة</title>
+    <meta name="description" content="الموقع التعريفي الرسمي لمنشأة الغرفة البيضاء – القوانين، الهدف، وكل ما تريد معرفته.">
+    
+    <!-- الخطوط مع تحسين السرعة -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;900&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --bg-pure: #010102;
+            --pipeline-glow: #00ff66;
+            --elite-glow: #ffffff;
+            --trainee-glow: #0055ff;
+            --panel-bg: #05070a;
+            --border-color: #101929;
+            --text-clear: #a4b7cd;
+        }
+
+        body {
+            background-color: var(--bg-pure);
+            background-image: radial-gradient(rgba(0, 255, 102, 0.015) 1px, transparent 0);
+            background-size: 24px 24px;
+            color: var(--text-clear);
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* كروت زجاجية تفاعلية */
+        .glass-node-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .glass-node-card:hover {
+            border-color: var(--pipeline-glow);
+            background: rgba(0, 255, 102, 0.02);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        /* عنوان ضخم */
+        .heading-huge {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        /* لافتات مونو */
+        .mono-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--pipeline-glow);
+            text-transform: uppercase;
+        }
+
+        /* أزرار النخبة */
+        .btn-elite {
+            background: #ffffff;
+            color: #000000;
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .btn-elite:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        /* الأقسام الديناميكية */
+        .full-section-viewport {
+            display: none;
+            scroll-margin-top: 80px;
+        }
+
+        .full-section-viewport.active {
+            display: block;
+        }
+
+        /* شريط التمرير المخصص */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #17243a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--pipeline-glow); }
+
+        /* شريط الأخبار العلوي */
+        .ticker-wrap {
+            background: #000;
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: ticker-slide 35s linear infinite;
+        }
+
+        @keyframes ticker-slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط الحالة العلوي -->
+    <div class="ticker-wrap">
+        <div class="ticker-content mono-label">
+            [ PUBLIC_KNOWLEDGE_HUB ] • [ GENERAL_RULES_AND_GOALS ] • [ FOR_ELITE_AND_TRAINEES ] • [ NO_SECRETS ] • [ WELCOME ]
+        </div>
+    </div>
+
+    <!-- الهيدر -->
+    <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/5">
+        <div class="container mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group" id="logoHome">
+                <div class="w-8 h-8 border border-emerald-500 rotate-45 flex items-center justify-center group-hover:bg-emerald-500 transition duration-500">
+                    <span class="rotate-[-45deg] font-black text-white text-xs">WR</span>
+                </div>
+                <span class="text-xl font-black tracking-tighter uppercase font-['Orbitron']">WHITE <span class="text-emerald-400 italic font-light">ROOM</span></span>
+            </a>
+            <nav class="hidden md:flex gap-6 text-xs font-bold uppercase tracking-wider font-['Orbitron']">
+                <a href="#" id="navHomeLink" class="text-emerald-400 hover:text-white transition">HOME</a>
+                <a href="#" id="navGridLink" class="hover:text-emerald-400 transition">SECTIONS</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="heroSection" class="container mx-auto px-6 md:px-12 py-16 md:py-24">
+            <div class="mono-label mb-6">// PUBLIC_INFO: SYSTEM_OVERVIEW</div>
+            <h1 class="heading-huge text-white mb-8">
+                THE WHITE ROOM <br> 
+                <span class="text-transparent" style="-webkit-text-stroke: 1.5px #00ff66;">معرفة للجميع</span>
+            </h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end mt-12">
+                <p class="text-slate-300 text-lg md:text-xl leading-relaxed border-r-2 border-emerald-500 pr-6 text-justify">
+                    هذا الموقع هو البوابة الرسمية لكل ما تريد معرفته عن منشأة <b>الغرفة البيضاء</b>. ستجد هنا القوانين العامة، أهدافنا، شرح طريقة العمل، وكل ما يخص النخبة والمتدربين. المعرفة حق للجميع.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="btn-elite" id="actionExplore">تصفح الأقسام</button>
+                    <button class="px-6 py-3 border border-white/10 rounded-full font-bold hover:bg-white/5 transition text-sm uppercase tracking-widest text-white" id="actionManifesto">اقرأ الميثاق</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- شبكة البطاقات -->
+        <section id="nodesGridSection" class="container mx-auto px-6 md:px-12 py-12">
+            <div class="mb-12 border-b border-white/5 pb-6">
+                <div class="mono-label mb-2">// GENERAL INFORMATION</div>
+                <h2 class="text-3xl md:text-4xl font-black text-white">ماذا تريد أن تعرف؟ <span class="text-emerald-400 font-light italic">اختر موضوعاً</span></h2>
+                <p class="text-slate-400 mt-2 text-sm">اضغط على أي كارت لقراءة المحتوى كاملاً داخل هذه الصفحة.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div class="glass-node-card p-6" data-target="about">
+                    <div class="text-3xl mb-4">🏛️</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_01</span>
+                    <h3 class="text-lg font-bold text-white mb-2">ما هي الغرفة البيضاء؟</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">تعريف كامل بالمنشأة، فكرتها، والهدف من وجودها.</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="goal">
+                    <div class="text-3xl mb-4">🎯</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_02</span>
+                    <h3 class="text-lg font-bold text-white mb-2">هدفنا الأساسي</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">لماذا أنشأنا هذه المنشأة؟ وماذا نريد تحقيقه؟</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="rules">
+                    <div class="text-3xl mb-4">📜</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_03</span>
+                    <h3 class="text-lg font-bold text-white mb-2">القوانين العامة</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">القواعد التي تنطبق على الجميع داخل النظام.</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="join">
+                    <div class="text-3xl mb-4">🚪</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_04</span>
+                    <h3 class="text-lg font-bold text-white mb-2">كيف تنضم إلينا؟</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">خطوات بسيطة لتصبح جزءاً من الغرفة البيضاء.</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="structure">
+                    <div class="text-3xl mb-4">👥</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_05</span>
+                    <h3 class="text-lg font-bold text-white mb-2">النخبة والمتدربين</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">شرح طبقات المنشأة وكيف تترقى.</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="chess_role">
+                    <div class="text-3xl mb-4">♟️</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_06</span>
+                    <h3 class="text-lg font-bold text-white mb-2">دور الشطرنج</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">لماذا نستخدم الشطرنج كأداة أساسية؟</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="conduct">
+                    <div class="text-3xl mb-4">🤝</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_07</span>
+                    <h3 class="text-lg font-bold text-white mb-2">قواعد السلوك</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">ما هو مسموح وما هو ممنوع داخل المنشأة.</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="faq">
+                    <div class="text-3xl mb-4">❓</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_08</span>
+                    <h3 class="text-lg font-bold text-white mb-2">أسئلة شائعة</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">إجابات سريعة لأكثر الاستفسارات تكراراً.</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="evaluation">
+                    <div class="text-3xl mb-4">📊</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_09</span>
+                    <h3 class="text-lg font-bold text-white mb-2">نظام التقييم</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">كيف نقيس الأداء ونتابع التقدم.</p>
+                </div>
+                <div class="glass-node-card p-6" data-target="contact">
+                    <div class="text-3xl mb-4">✉️</div>
+                    <span class="text-[10px] font-['Orbitron'] text-emerald-400 font-bold block mb-1">INFO_10</span>
+                    <h3 class="text-lg font-bold text-white mb-2">تواصل معنا</h3>
+                    <p class="text-slate-400 text-xs line-clamp-2">للاستفسارات أو طلب المساعدة.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- حاوية المحتوى الديناميكي -->
+        <section id="dynamicViewportContainer" class="container mx-auto px-6 md:px-12 py-12"></section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="py-12 border-t border-white/5 bg-black mt-20">
+        <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-6 h-6 border border-white/20 rotate-45 flex items-center justify-center">
+                    <span class="rotate-[-45deg] text-[8px] font-bold">WR</span>
+                </div>
+                <div class="text-xs font-black tracking-widest uppercase font-['Orbitron']">THE WHITE ROOM <span class="text-emerald-400">PUBLIC</span></div>
+            </div>
+            <div class="text-[10px] font-['Orbitron'] tracking-wider opacity-40">© 2026 KNOWLEDGE_HUB — المعلومات للجميع</div>
+        </div>
+    </footer>
+
+    <script>
+        // محتوى الأقسام
+        const whiteRoomData = {
+            about: {
+                title: "ما هي الغرفة البيضاء؟",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_01</span>
+                        <h3 class="text-3xl font-black text-white mb-6">عن المنشأة</h3>
+                        <p class="text-slate-300 leading-relaxed mb-6 text-justify">
+                            الغرفة البيضاء هي منشأة تدريبية عقلية مستوحاة من أنمي <b>Classroom of the Elite</b>.
+                            نهدف إلى بناء عقول عبقرية تعتمد على المنطق والتحليل البارد، بعيداً عن العواطف.
+                            نستخدم <b>الشطرنج</b> كأداة رئيسية لاختبار وتطوير التفكير الاستراتيجي، الصبر، والقدرة على اتخاذ القرار تحت الضغط.
+                        </p>
+                    </div>
+                `
+            },
+            goal: {
+                title: "هدفنا الأساسي",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_02</span>
+                        <h3 class="text-3xl font-black text-white mb-6">ماذا نريد تحقيقه؟</h3>
+                        <p class="text-slate-300 leading-relaxed mb-4 text-justify">
+                            نهدف إلى <b>توليد جيل من المفكرين الاستراتيجيين</b> القادرين على حل المشكلات المعقدة بأعلى كفاءة.
+                            نؤمن أن العقل مثل العضلة يحتاج إلى تدريب قاسٍ ومستمر، وليس هناك أفضل من الشطرنج لصقل هذه المهارات.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-justify">
+                            النجاح هنا لا يعتمد على الحظ أو الموهبة وحدها، بل على <b>العمل الجاد والالتزام والتحليل المنطقي</b>.
+                        </p>
+                    </div>
+                `
+            },
+            rules: {
+                title: "القوانين العامة",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_03</span>
+                        <h3 class="text-3xl font-black text-white mb-6">القوانين الأساسية للجميع</h3>
+                        <ul class="list-disc list-inside space-y-3 text-slate-300 text-justify">
+                            <li><b>الالتزام بالاحترام:</b> ممنوع التطاول أو الإساءة لأي عضو.</li>
+                            <li><b>النشاط الأسبوعي:</b> يجب لعب عدد معين من المباريات الرسمية أسبوعياً.</li>
+                            <li><b>النزاهة:</b> استخدام محركات الشطرنج أو الغش يؤدي إلى الطرد الفوري.</li>
+                            <li><b>السرية:</b> لا يسمح بتسريب أي مواد تدريبية أو تحليلات خارج المنشأة.</li>
+                            <li><b>التقييم المستمر:</b> جميع الأعضاء تحت المراقبة الدورية لضمان التقدم.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            join: {
+                title: "كيف تنضم إلينا؟",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_04</span>
+                        <h3 class="text-3xl font-black text-white mb-6">خطوات الانضمام</h3>
+                        <ol class="list-decimal list-inside space-y-4 text-slate-300 text-justify">
+                            <li>أنشئ حساباً على <b>Chess.com</b> إذا لم يكن لديك.</li>
+                            <li>انضم إلى نادينا الرسمي على المنصة (الرابط في قسم التواصل).</li>
+                            <li>اقرأ القوانين كاملة ثم أرسل طلب انضمام للمشرفين.</li>
+                            <li>ابدأ أول 5 مباريات تقييمية ليتم تصنيفك.</li>
+                            <li>سيتم إضافتك إلى مجموعة المبتدئين وتبدأ رحلتك.</li>
+                        </ol>
+                    </div>
+                `
+            },
+            structure: {
+                title: "النخبة والمتدربين",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_05</span>
+                        <h3 class="text-3xl font-black text-white mb-6">طبقات المنشأة</h3>
+                        <p class="text-slate-300 leading-relaxed mb-4 text-justify">
+                            النظام مقسم إلى طبقتين رئيسيتين: <b>المتدربين (Training Facility)</b> و<b>النخبة (White Room Elite)</b>.
+                            المتدربون هم الأعضاء الجدد الذين يسعون لإثبات أنفسهم، أما النخبة فهم القادة وأفضل المصنفين الذين يدربون ويشرفون.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-justify">
+                            للترقي إلى النخبة، يجب أن تحتل أحد المراكز الثلاثة الأولى في قائمة المبتدئين <b>لمدة 4 أسابيع متتالية</b>.
+                            كما أن النخبة قد يهبطون إذا تراجع أداؤهم.
+                        </p>
+                    </div>
+                `
+            },
+            chess_role: {
+                title: "لماذا الشطرنج؟",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_06</span>
+                        <h3 class="text-3xl font-black text-white mb-6">الشطرنج كأداة</h3>
+                        <p class="text-slate-300 leading-relaxed text-justify">
+                            الشطرنج ليس مجرد لعبة، بل هو <b>محاكاة حقيقية للحياة</b>: التخطيط، الصبر، إدارة الموارد، والتعامل مع الخسارة.
+                            إنه يكشف طريقة تفكيرك ويجبرك على التحسين المستمر. لذلك اخترناه ليكون مقياسنا الأساسي.
+                        </p>
+                    </div>
+                `
+            },
+            conduct: {
+                title: "قواعد السلوك",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_07</span>
+                        <h3 class="text-3xl font-black text-white mb-6">السلوكيات المقبولة والممنوعة</h3>
+                        <p class="text-slate-300 leading-relaxed text-justify">
+                            <b>مسموح:</b> النقد البناء، تبادل التحليلات، طلب المساعدة، المشاركة في النقاشات التقنية.<br>
+                            <b>ممنوع:</b> السب، السخرية، الغش، الإزعاج، نشر محتوى غير لائق، أو التحدث في السياسة والدين.
+                            المخالفات تؤدي إلى عقوبات قد تصل إلى الطرد.
+                        </p>
+                    </div>
+                `
+            },
+            faq: {
+                title: "أسئلة شائعة",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_08</span>
+                        <h3 class="text-3xl font-black text-white mb-6">FAQ</h3>
+                        <div class="space-y-5 text-slate-300">
+                            <div><b>س: هل يجب أن أكون محترفاً للانضمام؟</b><br>ج: لا، كل المستويات مرحب بها، من المبتدئ إلى المتقدم.</div>
+                            <div><b>س: كم مباراة يجب أن ألعب في الأسبوع؟</b><br>ج: الحد الأدنى 5 مباريات رسمية.</div>
+                            <div><b>س: كيف أتواصل مع المدربين؟</b><br>ج: عبر قنواتنا المخصصة، أو بطلب توجيه من النخبة.</div>
+                            <div><b>س: هل يوجد رسوم اشتراك؟</b><br>ج: لا، المنشأة مجانية بالكامل.</div>
+                        </div>
+                    </div>
+                `
+            },
+            evaluation: {
+                title: "نظام التقييم",
+                body: `
+                    <div class="max-w-4xl mx-auto">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_09</span>
+                        <h3 class="text-3xl font-black text-white mb-6">كيف نقيمك؟</h3>
+                        <p class="text-slate-300 leading-relaxed text-justify">
+                            نعتمد على <b>تصنيف Elo</b> في Chess.com بالإضافة إلى تقارير تحليل الأداء.
+                            كما نراقب نشاطك الأسبوعي ومدى التزامك. الأعضاء الذين يظهرون تقدماً مستمراً يحصلون على فرص أكبر للترقي.
+                        </p>
+                    </div>
+                `
+            },
+            contact: {
+                title: "تواصل مع النخبة مباشرة",
+                body: `
+                    <div class="max-w-2xl mx-auto text-center">
+                        <span class="mono-label text-emerald-400 block mb-2">// INFO_10</span>
+                        <h3 class="text-3xl font-black text-white mb-6">أرسل استفسارك</h3>
+                        <p class="text-slate-300 mb-8">املأ البيانات وسيتم توجيهك فوراً إلى محادثة واتساب مع أحد أعضاء النخبة. الرسالة تكون جاهزة، فقط اضغط إرسال هناك.</p>
+                        
+                        <form id="contactForm" class="space-y-5 text-right">
+                            <div>
+                                <label class="block text-sm font-bold text-white mb-2">الاسم أو اللقب</label>
+                                <input type="text" id="contactName" required placeholder="كيف نناديك؟" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white outline-none focus:border-emerald-500 transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-white mb-2">الطلب أو المشكلة</label>
+                                <textarea id="contactMessage" required rows="4" placeholder="اكتب رسالتك أو سؤالك هنا..." class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white outline-none focus:border-emerald-500 transition"></textarea>
+                            </div>
+                            <button type="submit" class="btn-elite w-full justify-center text-center">
+                                <span>📱</span> إرسال إلى واتساب النخبة
+                            </button>
+                        </form>
+                        <p class="text-xs text-slate-500 mt-4">سيتم اختيار رقم نخبة عشوائي للتواصل معك مباشرة.</p>
+                    </div>
+                `
+            }
+        };
+
+        const dynamicViewportContainer = document.getElementById('dynamicViewportContainer');
+
+        // دالة عرض المحتوى داخل الصفحة
+        function renderSectionContent(sectionId) {
+            if (!whiteRoomData[sectionId]) return;
+            
+            let targetDiv = document.getElementById(`viewport-${sectionId}`);
+            
+            // إخفاء جميع الأقسام النشطة
+            document.querySelectorAll('.full-section-viewport').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // إنشاء القسم إذا لم يكن موجوداً
+            if (!targetDiv) {
+                targetDiv = document.createElement('div');
+                targetDiv.id = `viewport-${sectionId}`;
+                targetDiv.className = 'full-section-viewport bg-[#05070a] border border-white/5 rounded-[32px] p-8 md:p-12 mt-8';
+                targetDiv.innerHTML = whiteRoomData[sectionId].body;
+                dynamicViewportContainer.appendChild(targetDiv);
+                
+                // ربط نموذج التواصل إذا كان القسم المطلوب هو "contact"
+                if (sectionId === 'contact') {
+                    const form = targetDiv.querySelector('#contactForm');
+                    if (form) {
+                        form.addEventListener('submit', handleContactSubmit);
+                    }
+                }
+            }
+
+            // إظهار القسم والتمرير إليه
+            targetDiv.classList.add('active');
+            targetDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // معالجة إرسال نموذج التواصل
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('contactName').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            
+            if (!name || !message) {
+                alert('يرجى ملء جميع الحقول.');
+                return;
+            }
+            
+            const phoneNumbers = ['201131543403', '201118449087'];
+            const randomNumber = phoneNumbers[Math.floor(Math.random() * phoneNumbers.length)];
+            const text = `مرحباً، أنا ${name}.%0A%0A${message}`;
+            const whatsappURL = `https://wa.me/${randomNumber}?text=${text}`;
+            
+            window.open(whatsappURL, '_blank');
+        }
+
+        // ربط الأحداث
+        document.querySelectorAll('.glass-node-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const targetKey = card.getAttribute('data-target');
+                renderSectionContent(targetKey);
+            });
+        });
+
+        document.getElementById('actionExplore').addEventListener('click', () => {
+            document.getElementById('nodesGridSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('actionManifesto').addEventListener('click', () => {
+            renderSectionContent('about');
+        });
+
+        document.getElementById('logoHome').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.querySelectorAll('.full-section-viewport').forEach(s => s.classList.remove('active'));
+        });
+
+        document.getElementById('navHomeLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.getElementById('navGridLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('nodesGridSection').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
