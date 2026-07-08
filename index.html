@@ -1,6 +1,3 @@
-تمام، تم تعديل العنوان إلى THE WHITE ROOM فقط.
-
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -82,10 +79,6 @@
         ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
         .justify-text{text-align:justify}
         .hero-border{border-right:2px solid var(--accent);padding-right:24px}
-        .threat-container{display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;font-family:'Orbitron',sans-serif;font-size:.7rem;color:#4a5b72}
-        .threat-value{font-weight:700;min-width:100px;text-align:center;transition:color .4s,text-shadow .4s}
-        .threat-bar{width:60px;height:3px;background:#0b1528;position:relative}
-        .threat-fill{position:absolute;top:0;left:0;height:100%;width:20%;background:var(--accent);box-shadow:0 0 8px var(--accent);transition:width .6s,background .6s,box-shadow .6s}
     </style>
 </head>
 <body>
@@ -110,11 +103,6 @@
         <section id="heroSection" class="container mx-auto px-6 md:px-12 py-16 md:py-24">
             <div class="mono-label mb-6">// PUBLIC_INFO: SYSTEM_OVERVIEW</div>
             <h1 class="heading-huge text-white mb-8">THE WHITE ROOM <br><span class="text-transparent stroke-text">معرفة للجميع</span></h1>
-            <div class="threat-container" aria-live="polite">
-                <span>THREAT LEVEL:</span>
-                <span class="threat-value" id="threatLevel">منخفض</span>
-                <div class="threat-bar"><div class="threat-fill" id="threatFill"></div></div>
-            </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end mt-12">
                 <p class="text-slate-300 text-lg md:text-xl leading-relaxed hero-border justify-text">
                     هذا الموقع هو البوابة الرسمية لكل ما تريد معرفته عن منشأة <b>الغرفة البيضاء</b>. ستجد هنا القوانين العامة، أهدافنا، شرح طريقة العمل، وكل ما يخص النخبة والمتدربين. المعرفة حق للجميع.
@@ -195,8 +183,6 @@
                 contact: { title: "تواصل مع النخبة مباشرة", body: `<div class="max-w-2xl mx-auto text-center"><span class="mono-label text-emerald-400 block mb-2">// INFO_10</span><h3 class="text-3xl font-black text-white mb-6">أرسل استفسارك</h3><p class="text-slate-300 mb-8">املأ البيانات وسيتم توجيهك فوراً إلى محادثة واتساب مع أحد أعضاء النخبة. الرسالة تكون جاهزة، فقط اضغط إرسال هناك.</p><form id="contactForm" class="space-y-5 text-right"><div><label class="block text-sm font-bold text-white mb-2">الاسم أو اللقب</label><input type="text" id="contactName" required placeholder="كيف نناديك؟" class="input-field"></div><div><label class="block text-sm font-bold text-white mb-2">الطلب أو المشكلة</label><textarea id="contactMessage" required rows="4" placeholder="اكتب رسالتك أو سؤالك هنا..." class="input-field"></textarea></div><button type="submit" class="btn-elite w-full justify-center text-center"><span>📱</span> إرسال إلى واتساب النخبة</button></form><p class="text-xs text-slate-500 mt-4">سيتم اختيار رقم نخبة عشوائي للتواصل معك مباشرة.</p></div>` }
             };
             const dynamicViewportContainer = document.getElementById('dynamicViewportContainer');
-            const threatLevelEl = document.getElementById('threatLevel');
-            const threatFillEl = document.getElementById('threatFill');
             function renderSectionContent(sectionId) {
                 if (!whiteRoomData[sectionId]) return;
                 document.querySelectorAll('.full-section-viewport.active').forEach(s => s.classList.remove('active'));
@@ -234,26 +220,6 @@
             document.getElementById('logoHome').addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
             document.getElementById('navHomeLink').addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
             document.getElementById('navGridLink').addEventListener('click', e => { e.preventDefault(); document.getElementById('nodesGridSection').scrollIntoView({ behavior: 'smooth' }); });
-            const threatStates = [
-                { text: 'منخفض جداً', color: '#00cc66', width: '20%', shadow: '0 0 10px #00cc66' },
-                { text: 'منخفض', color: '#66cc00', width: '35%', shadow: '0 0 12px #66cc00' },
-                { text: 'متوسط', color: '#ffcc00', width: '55%', shadow: '0 0 15px #ffcc00' },
-                { text: 'مرتفع', color: '#ff6600', width: '75%', shadow: '0 0 18px #ff6600' },
-                { text: 'حرج', color: '#ff3333', width: '95%', shadow: '0 0 25px #ff3333' }
-            ];
-            let threatIdx = 0;
-            const updateThreat = () => {
-                const s = threatStates[threatIdx];
-                threatLevelEl.textContent = s.text;
-                threatLevelEl.style.color = s.color;
-                threatLevelEl.style.textShadow = `0 0 12px ${s.color}`;
-                threatFillEl.style.width = s.width;
-                threatFillEl.style.background = s.color;
-                threatFillEl.style.boxShadow = s.shadow;
-                threatIdx = (threatIdx + 1) % threatStates.length;
-            };
-            updateThreat();
-            setInterval(updateThreat, 8000);
         })();
     </script>
 </body>
